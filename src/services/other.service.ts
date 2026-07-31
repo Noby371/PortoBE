@@ -63,6 +63,10 @@ export class CertificateService {
     });
   }
 
+  async getById(id: number) {
+    return prisma.certificate.findUnique({ where: { id } });
+  }
+
   async create(data: Prisma.CertificateCreateInput) {
     return prisma.certificate.create({ data });
   }
@@ -109,6 +113,18 @@ export class ContactService {
     };
   }
 
+  async unreadSummary() {
+    const [count, latest] = await Promise.all([
+      prisma.contactMessage.count({ where: { isRead: false } }),
+      prisma.contactMessage.findFirst({
+        where: { isRead: false },
+        orderBy: { createdAt: "desc" },
+        select: { id: true, name: true, subject: true },
+      }),
+    ]);
+    return { count, latest };
+  }
+
   async markRead(id: number) {
     const existing = await prisma.contactMessage.findUnique({ where: { id } });
     if (!existing) return null;
@@ -116,5 +132,11 @@ export class ContactService {
       where: { id },
       data: { isRead: true },
     });
+  }
+
+  async delete(id: number) {
+    const existing = await prisma.contactMessage.findUnique({ where: { id } });
+    if (!existing) return null;
+    return prisma.contactMessage.delete({ where: { id } });
   }
 }

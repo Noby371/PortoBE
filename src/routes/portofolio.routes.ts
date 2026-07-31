@@ -11,6 +11,7 @@ import {
   CertificateService,
   ContactService,
 } from "../services/other.service.js";
+import { deleteUploadedFile } from "../lib/uploads.js";
 
 const authService = new AuthService();
 const profileService = new ProfileService();
@@ -256,9 +257,18 @@ export function createPortfolioRouter(): Router {
           if (!isAuthenticated(req)) {
             return { status: 401 as const, body: { message: "Unauthorized." } };
           }
+          const existing = await certificateService.getById(params.id);
           const data = await certificateService.update(params.id, body);
           if (!data) {
             return { status: 404 as const, body: { message: `Sertifikat dengan ID ${params.id} tidak ditemukan.` } };
+          }
+          // Hapus file gambar lama kalau diganti dengan gambar baru
+          if (
+            body.imageUrl &&
+            existing?.imageUrl &&
+            existing.imageUrl !== body.imageUrl
+          ) {
+            await deleteUploadedFile(existing.imageUrl);
           }
           return { status: 200 as const, body: data };
         },
@@ -267,10 +277,12 @@ export function createPortfolioRouter(): Router {
           if (!isAuthenticated(req)) {
             return { status: 401 as const, body: { message: "Unauthorized." } };
           }
+          const existing = await certificateService.getById(params.id);
           const data = await certificateService.delete(params.id);
           if (!data) {
             return { status: 404 as const, body: { message: `Sertifikat dengan ID ${params.id} tidak ditemukan.` } };
           }
+          await deleteUploadedFile(existing?.imageUrl);
           return { status: 200 as const, body: { message: "Sertifikat berhasil dihapus." } };
         },
       },
@@ -290,6 +302,14 @@ export function createPortfolioRouter(): Router {
           return { status: 200 as const, body: result };
         },
 
+        unreadSummary: async ({ req }) => {
+          if (!isAuthenticated(req)) {
+            return { status: 401 as const, body: { message: "Unauthorized." } };
+          }
+          const result = await contactService.unreadSummary();
+          return { status: 200 as const, body: result };
+        },
+
         markRead: async ({ params, req }) => {
           if (!isAuthenticated(req)) {
             return { status: 401 as const, body: { message: "Unauthorized." } };
@@ -299,6 +319,17 @@ export function createPortfolioRouter(): Router {
             return { status: 404 as const, body: { message: `Pesan dengan ID ${params.id} tidak ditemukan.` } };
           }
           return { status: 200 as const, body: msg };
+        },
+
+        delete: async ({ params, req }) => {
+          if (!isAuthenticated(req)) {
+            return { status: 401 as const, body: { message: "Unauthorized." } };
+          }
+          const msg = await contactService.delete(params.id);
+          if (!msg) {
+            return { status: 404 as const, body: { message: `Pesan dengan ID ${params.id} tidak ditemukan.` } };
+          }
+          return { status: 200 as const, body: { message: "Pesan berhasil dihapus." } };
         },
       },
     },

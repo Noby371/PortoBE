@@ -491,6 +491,23 @@ export const portfolioContract = c.router({
         401: ErrorSchema,
       },
     }),
+    unreadSummary: c.query({
+      method: "GET",
+      path: "/contact/messages/unread-summary",
+      responses: {
+        200: z.object({
+          count: z.number(),
+          latest: z
+            .object({
+              id: z.number(),
+              name: z.string(),
+              subject: z.string(),
+            })
+            .nullable(),
+        }),
+        401: ErrorSchema,
+      },
+    }),
     markRead: c.mutation({
       method: "PATCH",
       path: "/contact/messages/:id/read",
@@ -498,6 +515,17 @@ export const portfolioContract = c.router({
       body: c.noBody(),
       responses: {
         200: ContactMessageSchema,
+        401: ErrorSchema,
+        404: ErrorSchema,
+      },
+    }),
+    delete: c.mutation({
+      method: "DELETE",
+      path: "/contact/messages/:id",
+      pathParams: IdParam,
+      body: c.noBody(),
+      responses: {
+        200: z.object({ message: z.string() }),
         401: ErrorSchema,
         404: ErrorSchema,
       },

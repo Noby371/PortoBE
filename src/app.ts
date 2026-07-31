@@ -2,10 +2,13 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import path from "node:path";
 import { env } from "./config/env.js";
 import { createPortfolioRouter } from "./routes/portofolio.routes.js";
+import { createUploadRouter } from "./routes/upload.routes.js";
 import { errorHandler, notFoundHandler } from "./middleware/error.middleware.js";
 import { authMiddleware } from "./middleware/auth.middleware.js";
+import { ProfileService } from "./services/profile.service.js";
 
 export function createApp() {
   const app = express();
@@ -23,6 +26,12 @@ export function createApp() {
   app.use(express.urlencoded({ extended: true }));
   app.use(cookieParser());
 
+  // ── Static Uploads ─────────────────────────────────────────────────────────
+  app.use(
+    "/uploads",
+    express.static(path.join(process.cwd(), "uploads"))
+  );
+
   // ── Health Check ───────────────────────────────────────────────────────────
   app.get("/health", (_req, res) => {
     res.json({
@@ -38,6 +47,7 @@ export function createApp() {
 
   // ── API Routes ─────────────────────────────────────────────────────────────
   app.use(env.API_PREFIX, createPortfolioRouter());
+  app.use(env.API_PREFIX, createUploadRouter(new ProfileService()));
 
   // ── Error Handlers ─────────────────────────────────────────────────────────
   app.use(notFoundHandler);
