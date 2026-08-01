@@ -33,7 +33,7 @@ async function main() {
     data: {
       name: "FathBoy",
       title: "Fullstack Developer & IoT Engineer",
-      bio: "Mahasiswa Teknik Informatika semester 8 di Universitas Wiraraja Madura. Berpengalaman dalam pengembangan sistem IoT, web fullstack, dan mobile application. Co-founder InnoTech — software house yang berfokus pada solusi teknologi untuk bisnis lokal.",
+      bio: "Fresh Graduate Teknik Informatika di Universitas Wiraraja Madura. Berpengalaman dalam pengembangan sistem IoT, web fullstack, dan mobile application. Co-founder InnoTech — software house yang berfokus pada solusi teknologi untuk bisnis lokal.",
       email: "email@example.com",
       phone: "+62 8xx-xxxx-xxxx",
       location: "Sumenep, Madura, Indonesia",
@@ -182,8 +182,9 @@ async function main() {
       degree: "Sarjana Komputer (S.Kom)",
       field: "Teknik Informatika",
       startYear: 2021,
-      isCurrent: true,
-      description: "Semester 8. Fokus riset pada sistem IoT, fuzzy logic, dan pengembangan perangkat lunak.",
+      endYear: 2025,
+      isCurrent: false,
+      description: "Lulusan 2025. Fokus riset pada sistem IoT, fuzzy logic, dan pengembangan perangkat lunak.",
     },
   });
   console.log("✅ Education seeded");
