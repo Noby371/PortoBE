@@ -189,6 +189,11 @@ const LoginResponse = z.object({
   }),
 });
 
+const ChangePasswordBody = z.object({
+  currentPassword: z.string(),
+  newPassword: z.string().min(8),
+});
+
 // ─── Contract ─────────────────────────────────────────────────────────────────
 
 export const portfolioContract = c.router({
@@ -213,6 +218,16 @@ export const portfolioContract = c.router({
           email: z.string(),
           lastLoginAt: z.coerce.date().nullable(),
         }),
+        401: ErrorSchema,
+      },
+    }),
+    changePassword: c.mutation({
+      method: "POST",
+      path: "/auth/change-password",
+      body: ChangePasswordBody,
+      responses: {
+        200: z.object({ message: z.string() }),
+        400: ErrorSchema,
         401: ErrorSchema,
       },
     }),

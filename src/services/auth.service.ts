@@ -50,4 +50,27 @@ export class AuthService {
       },
     });
   }
+
+  async changePassword(id: number, currentPassword: string, newPassword: string) {
+    const admin = await prisma.admin.findUnique({
+      where: { id },
+    });
+
+    if (!admin || !admin.isActive) {
+      return { ok: false as const, reason: "NOT_FOUND" as const };
+    }
+
+    const isValid = await bcrypt.compare(currentPassword, admin.password);
+    if (!isValid) {
+      return { ok: false as const, reason: "INVALID_CURRENT" as const };
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 12);
+    await prisma.admin.update({
+      where: { id },
+      data: { password: hashedPassword },
+    });
+
+    return { ok: true as const };
+  }
 }

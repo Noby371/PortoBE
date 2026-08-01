@@ -53,6 +53,25 @@ export function createPortfolioRouter(): Router {
           }
           return { status: 200 as const, body: admin };
         },
+
+        changePassword: async ({ body, req }) => {
+          if (!isAuthenticated(req)) {
+            return { status: 401 as const, body: { message: "Unauthorized." } };
+          }
+          const result = await authService.changePassword(
+            req.admin!.id,
+            body.currentPassword,
+            body.newPassword
+          );
+          if (!result.ok) {
+            const message =
+              result.reason === "INVALID_CURRENT"
+                ? "Password lama salah."
+                : "Admin tidak ditemukan.";
+            return { status: 400 as const, body: { message } };
+          }
+          return { status: 200 as const, body: { message: "Password berhasil diubah." } };
+        },
       },
 
       // ── Profile ──────────────────────────────────────────────────────────
