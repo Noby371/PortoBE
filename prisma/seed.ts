@@ -19,7 +19,7 @@ async function main() {
 
   const admin = await prisma.admin.create({
     data: {
-      email: "admin@fathboy.dev",
+      email: "thisme371@gmail.com",
       password: hashedPassword,
       isActive: true,
     },
@@ -34,8 +34,8 @@ async function main() {
       name: "FathBoy",
       title: "Fullstack Developer & IoT Engineer",
       bio: "Fresh Graduate Teknik Informatika di Universitas Wiraraja Madura. Berpengalaman dalam pengembangan sistem IoT, web fullstack, dan mobile application. Co-founder InnoTech — software house yang berfokus pada solusi teknologi untuk bisnis lokal.",
-      email: "email@example.com",
-      phone: "+62 8xx-xxxx-xxxx",
+      email: "thisme371@gmail.com",
+      phone: "+62 858-5954-1243",
       location: "Sumenep, Madura, Indonesia",
       githubUrl: "https://github.com/username",
       linkedinUrl: "https://linkedin.com/in/username",
@@ -82,17 +82,29 @@ async function main() {
       {
         title: "WMS — Sistem Monitoring Tempat Sampah IoT",
         slug: "wms-iot-trash-monitoring",
-        description: "Sistem pemantauan kepenuhan tempat sampah secara real-time menggunakan ESP32, sensor ultrasonik HC-SR04, dan logika Fuzzy Tsukamoto.",
+        description:
+          "Sistem pemantauan kepenuhan tempat sampah secara real-time menggunakan ESP32, sensor ultrasonik HC-SR04, dan logika Fuzzy Tsukamoto.",
         type: "THESIS",
         status: "IN_PROGRESS",
-        techStack: ["ESP32", "C++", "MQTT", "Node.js", "TypeScript", "Express", "Prisma", "PostgreSQL", "Vue.js"],
+        techStack: [
+          "ESP32",
+          "C++",
+          "MQTT",
+          "Node.js",
+          "TypeScript",
+          "Express",
+          "Prisma",
+          "PostgreSQL",
+          "Vue.js",
+        ],
         featured: true,
         startDate: new Date("2024-09-01"),
       },
       {
         title: "InnoTech — Software House Sumenep",
         slug: "innotech-software-house",
-        description: "Co-founder dan developer di InnoTech, startup software house di Sumenep yang berfokus pada solusi web, mobile, IoT, dan konsultasi IT.",
+        description:
+          "Co-founder dan developer di InnoTech, startup software house di Sumenep yang berfokus pada solusi web, mobile, IoT, dan konsultasi IT.",
         type: "STARTUP",
         status: "IN_PROGRESS",
         techStack: ["Node.js", "Vue.js", "Laravel", "PHP", "MySQL"],
@@ -102,7 +114,8 @@ async function main() {
       {
         title: "SPK Naive Bayes — Rekomendasi Topik Skripsi",
         slug: "spk-naive-bayes",
-        description: "Sistem Pendukung Keputusan berbasis PHP untuk merekomendasikan topik skripsi mahasiswa menggunakan metode Naive Bayes dengan Laplace Smoothing.",
+        description:
+          "Sistem Pendukung Keputusan berbasis PHP untuk merekomendasikan topik skripsi mahasiswa menggunakan metode Naive Bayes dengan Laplace Smoothing.",
         type: "ACADEMIC",
         status: "COMPLETED",
         techStack: ["PHP", "MySQL", "HTML", "CSS", "Bootstrap"],
@@ -113,7 +126,8 @@ async function main() {
       {
         title: "Modul Praktikum IoT Interaktif",
         slug: "modul-praktikum-iot",
-        description: "Modul pembelajaran IoT berbasis HTML interaktif untuk siswa SMK/SMA dan mahasiswa, mencakup dasar ESP32, GPIO, WiFi, dan MQTT.",
+        description:
+          "Modul pembelajaran IoT berbasis HTML interaktif untuk siswa SMK/SMA dan mahasiswa, mencakup dasar ESP32, GPIO, WiFi, dan MQTT.",
         type: "ACADEMIC",
         status: "COMPLETED",
         techStack: ["HTML", "CSS", "JavaScript", "ESP32", "MQTT"],
@@ -133,7 +147,8 @@ async function main() {
       {
         company: "InnoTech",
         role: "Co-Founder & Fullstack Developer",
-        description: "Memimpin pengembangan teknis dan strategi bisnis software house di Sumenep.",
+        description:
+          "Memimpin pengembangan teknis dan strategi bisnis software house di Sumenep.",
         startDate: new Date("2024-01-01"),
         isCurrent: true,
         location: "Sumenep, Madura",
@@ -142,7 +157,8 @@ async function main() {
       {
         company: "Universitas Wiraraja Madura",
         role: "Pemateri ITClass — IoT",
-        description: "Mengajar Internet of Things kepada mahasiswa mencakup ESP32, sensor, dan protokol MQTT.",
+        description:
+          "Mengajar Internet of Things kepada mahasiswa mencakup ESP32, sensor, dan protokol MQTT.",
         startDate: new Date("2024-02-01"),
         endDate: new Date("2024-08-01"),
         isCurrent: false,
@@ -152,7 +168,8 @@ async function main() {
       {
         company: "Madura Store",
         role: "Teknisi — Magang",
-        description: "Melakukan diagnosis dan perbaikan perangkat keras laptop, instalasi sistem operasi, dan troubleshooting software.",
+        description:
+          "Melakukan diagnosis dan perbaikan perangkat keras laptop, instalasi sistem operasi, dan troubleshooting software.",
         startDate: new Date("2023-06-01"),
         endDate: new Date("2023-08-01"),
         isCurrent: false,
@@ -162,7 +179,8 @@ async function main() {
       {
         company: "Universitas Negeri Yogyakarta",
         role: "Mahasiswa Pertukaran — PMM",
-        description: "Mengikuti program Pertukaran Mahasiswa Merdeka di Universitas Negeri Yogyakarta.",
+        description:
+          "Mengikuti program Pertukaran Mahasiswa Merdeka di Universitas Negeri Yogyakarta.",
         startDate: new Date("2023-02-01"),
         endDate: new Date("2023-06-01"),
         isCurrent: false,
@@ -184,7 +202,8 @@ async function main() {
       startYear: 2021,
       endYear: 2025,
       isCurrent: false,
-      description: "Lulusan 2025. Fokus riset pada sistem IoT, fuzzy logic, dan pengembangan perangkat lunak.",
+      description:
+        "Lulusan 2025. Fokus riset pada sistem IoT, fuzzy logic, dan pengembangan perangkat lunak.",
     },
   });
   console.log("✅ Education seeded");
